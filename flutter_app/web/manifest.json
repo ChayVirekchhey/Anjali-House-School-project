@@ -1,0 +1,11 @@
+{
+  "name": "EduAttend Anjali House",
+  "short_name": "EduAttend",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#006B45",
+  "theme_color": "#006B45",
+  "description": "Student Attendance App for Anjali House",
+  "orientation": "portrait-primary",
+  "prefer_related_applications": false
+}

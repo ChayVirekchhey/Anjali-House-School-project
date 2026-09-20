@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200" width="100%" height="100%">
+  <!-- Red Roof Outline -->
+  <path d="M 14 118 L 150 10 L 286 118" fill="none" stroke="#EF3D43" stroke-width="6.8" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Red Heart floating above left roof slope -->
+  <g transform="translate(62, 33) rotate(-14) scale(0.68)">
+    <path d="M 0 -6 C -7 -24 -32 -20 -32 6 C -32 25 0 46 0 46 C 0 46 32 25 32 6 C 32 -20 7 -24 0 -6 Z" fill="#EF3D43"/>
+  </g>
+
+  <!-- Green Smiley Face -->
+  <!-- Left Eye -->
+  <circle cx="141" cy="34" r="4.8" fill="#8FA91C"/>
+  <!-- Right Eye -->
+  <circle cx="159" cy="34" r="4.8" fill="#8FA91C"/>
+  <!-- Smile Arc -->
+  <path d="M 120 38 C 120 68 180 68 180 38" fill="none" stroke="#8FA91C" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- "anjali" Hand-Drawn Letters -->
+  <!-- 'a' - Golden Yellow -->
+  <path d="M 88 107 C 88 97 76 96 68 99 C 63 101 62 105 63 110 C 64 116 70 118 77 118 C 83 118 88 114 88 107 Z" fill="none" stroke="#FDB813" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 88 97 L 88 130 C 88 133 90 134 93 133" fill="none" stroke="#FDB813" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- 'n' - Blue -->
+  <path d="M 103 98 L 103 132" fill="none" stroke="#0083B8" stroke-width="6.2" stroke-linecap="round"/>
+  <path d="M 103 108 C 105 97 124 96 128 105 L 128 132" fill="none" stroke="#0083B8" stroke-width="6.2" stroke-linecap="round"/>
+
+  <!-- 'j' - Peach -->
+  <path d="M 140 73 L 135 84" fill="none" stroke="#F6A778" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M 143 96 L 143 131 C 143 147 125 151 118 145" fill="none" stroke="#F6A778" stroke-width="6.2" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- 'a' - Green -->
+  <path d="M 179 107 C 179 97 167 96 159 99 C 154 101 153 105 154 110 C 155 116 161 118 168 118 C 174 118 179 114 179 107 Z" fill="none" stroke="#8FA91C" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 179 97 L 179 130 C 179 133 181 134 184 133" fill="none" stroke="#8FA91C" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- 'l' - Orange -->
+  <path d="M 197 86 L 197 128 C 197 132 201 134 204 132" fill="none" stroke="#F58025" stroke-width="6.2" stroke-linecap="round"/>
+
+  <!-- 'i' - Blue -->
+  <path d="M 221 82 L 227 74" fill="none" stroke="#0083B8" stroke-width="5.5" stroke-linecap="round"/>
+  <path d="M 222 96 L 222 130 C 222 133 224 134 227 133" fill="none" stroke="#0083B8" stroke-width="6.2" stroke-linecap="round"/>
+
+  <!-- "house" - Red Cursive Script -->
+  <g fill="none" stroke="#EF3D43" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- 'h' -->
+    <path d="M 74 186 L 86 138 C 88 133 93 133 95 137 C 97 142 85 167 85 174 C 85 167 95 156 102 156 C 107 156 110 160 110 168 L 110 184 C 110 187 113 188 116 186"/>
+    <!-- 'o' -->
+    <path d="M 125 172 C 125 160 143 160 143 172 C 143 184 125 184 125 172 C 125 168 131 165 141 166"/>
+    <!-- 'u' -->
+    <path d="M 152 166 L 152 178 C 152 186 167 186 167 178 L 167 166 L 167 184 C 167 187 170 188 173 186"/>
+    <!-- 's' -->
+    <path d="M 183 186 C 182 179 193 174 195 169 C 196 164 190 163 186 165 C 182 167 180 174 185 180 C 191 186 199 187 202 183"/>
+    <!-- 'e' -->
+    <path d="M 211 176 C 205 176 206 165 214 165 C 223 165 224 175 220 182 C 216 188 223 189 228 184"/>
+  </g>
+</svg>

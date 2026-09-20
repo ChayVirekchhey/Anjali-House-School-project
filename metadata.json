@@ -1,0 +1,6 @@
+{
+  "name": "EduAttend",
+  "description": "Student Attendance Management System - Fast, simple, and accurate mobile attendance tracking for schools, teachers, students, and administrators.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
