@@ -118,23 +118,29 @@ export const MobileAppContainer: React.FC<MobileAppContainerProps> = ({
     isDarkMode;
 
   return (
-    <div className={`relative flex flex-col items-center justify-center ${className}`}>
-      {/* Device Body Frame */}
+    <div className={`relative flex flex-col items-center justify-center w-full ${className}`}>
+      {/* Device Body Frame: On desktop, renders as a sleek phone frame. On mobile devices, renders edge-to-edge */}
       <div 
-        className="relative w-full max-w-[390px] h-[780px] max-h-[92vh] bg-slate-900 rounded-[46px] p-3 shadow-[0_24px_64px_rgba(0,0,0,0.35)] border-4 border-slate-800 flex flex-col overflow-hidden ring-1 ring-white/10"
+        className={
+          deviceStyle === 'borderless'
+            ? 'relative w-full h-full min-h-[100dvh] flex flex-col overflow-hidden bg-transparent'
+            : 'relative w-full max-w-none md:max-w-[390px] h-[calc(100dvh-70px)] md:h-[780px] md:max-h-[92vh] md:bg-slate-900 md:rounded-[46px] md:p-3 md:shadow-[0_24px_64px_rgba(0,0,0,0.35)] md:border-4 md:border-slate-800 flex flex-col overflow-hidden md:ring-1 md:ring-white/10'
+        }
       >
-        {/* Hardware details: Speaker & Camera Notch (Dynamic Island) */}
-        <div className="absolute top-4 left-1/2 -translate-x-1/2 z-40 w-28 h-5 bg-black rounded-full flex items-center justify-center pointer-events-none">
-          <div className="w-2.5 h-2.5 rounded-full bg-slate-900 ring-1 ring-slate-800/80 mr-3" />
-          <div className="w-1.5 h-1.5 rounded-full bg-blue-950" />
-        </div>
+        {/* Hardware details: Speaker & Camera Notch (Dynamic Island) - shown only on desktop simulator */}
+        {deviceStyle !== 'borderless' && (
+          <div className="hidden md:flex absolute top-4 left-1/2 -translate-x-1/2 z-40 w-28 h-5 bg-black rounded-full items-center justify-center pointer-events-none">
+            <div className="w-2.5 h-2.5 rounded-full bg-slate-900 ring-1 ring-slate-800/80 mr-3" />
+            <div className="w-1.5 h-1.5 rounded-full bg-blue-950" />
+          </div>
+        )}
 
         {/* Screen Content Window */}
-        <div className={`relative w-full h-full rounded-[38px] overflow-hidden flex flex-col transition-colors duration-200 ${
+        <div className={`relative w-full h-full md:rounded-[38px] overflow-hidden flex flex-col transition-colors duration-200 ${
           isDarkMode ? 'bg-slate-900' : 'bg-[#F7F8F7]'
         }`}>
-          {/* Status Bar: 9:41, wifi, battery */}
-          <div className="w-full h-9 px-6 flex items-center justify-between text-xs font-bold z-30 select-none bg-transparent pt-1">
+          {/* Status Bar: Shown on desktop simulator; on real phone native status bar is present */}
+          <div className="hidden md:flex w-full h-9 px-6 items-center justify-between text-xs font-bold z-30 select-none bg-transparent pt-1">
             <span className={isDarkThemeScreen ? 'text-white' : 'text-slate-800'}>
               9:41
             </span>

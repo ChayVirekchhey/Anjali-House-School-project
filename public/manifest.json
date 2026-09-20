@@ -1,0 +1,26 @@
+{
+  "id": "/",
+  "name": "EduAttend — Anjali House",
+  "short_name": "EduAttend",
+  "description": "Student Attendance Management System for Anjali House NGO in Siem Reap, Cambodia.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#006B45",
+  "background_color": "#F7F8F7",
+  "icons": [
+    {
+      "src": "/anjali-logo.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/anjali-house-logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

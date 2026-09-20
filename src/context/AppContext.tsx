@@ -132,7 +132,12 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [viewMode, setViewMode] = useState<AppViewMode>('presentation');
+  const [viewMode, setViewMode] = useState<AppViewMode>(() => {
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      return 'mobile_app';
+    }
+    return 'presentation';
+  });
   const [activeScreen, setActiveScreen] = useState<ActiveScreen>('splash');
   const [presentationFocusedIndex, setPresentationFocusedIndex] = useState<number | null>(null);
   

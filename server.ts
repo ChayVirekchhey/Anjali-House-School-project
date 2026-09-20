@@ -1,5 +1,6 @@
 import express from "express";
 import path from "path";
+import * as archiverModule from "archiver";
 import { createServer as createViteServer } from "vite";
 import { getAllStudents, getAttendanceByDate, saveAttendanceRecord } from "./src/db/attendance.ts";
 import { getOrCreateUser } from "./src/db/users.ts";
@@ -72,6 +73,26 @@ async function startServer() {
     } catch (error: any) {
       console.error("Error syncing user:", error);
       res.status(500).json({ error: error.message || "Failed to sync user" });
+    }
+  });
+
+  // Direct download endpoint for Flutter App project (ZIP)
+  app.get("/api/download/flutter-app", (_req, res) => {
+    try {
+      res.setHeader("Content-Disposition", 'attachment; filename="eduattend-flutter-app.zip"');
+      res.setHeader("Content-Type", "application/zip");
+      const ZipClass = archiverModule.ZipArchive || (archiverModule as any).default?.ZipArchive;
+      const archive = ZipClass ? new ZipClass({ zlib: { level: 9 } }) : (archiverModule as any)("zip", { zlib: { level: 9 } });
+      archive.on("error", (err: any) => {
+        console.error("Archive error:", err);
+        if (!res.headersSent) res.status(500).send({ error: err.message });
+      });
+      archive.pipe(res);
+      archive.directory(path.join(process.cwd(), "flutter_app"), "flutter_app");
+      archive.finalize();
+    } catch (err: any) {
+      console.error("Download error:", err);
+      if (!res.headersSent) res.status(500).send({ error: err.message });
     }
   });
 

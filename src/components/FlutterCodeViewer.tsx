@@ -936,19 +936,29 @@ export const FlutterCodeViewer: React.FC = () => {
         </div>
 
         {/* Action Button & VS Code Terminal Cheat */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
+          <a
+            href="/api/download/flutter-app"
+            download="eduattend-flutter-app.zip"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#006B45] text-white text-xs font-bold hover:bg-[#005234] transition shadow-xs cursor-pointer"
+            title="Download complete Flutter project ready for flutter build apk"
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span>Download Project (.ZIP)</span>
+          </a>
+
           <div className={`px-3 py-1.5 rounded-xl border text-xs font-mono flex items-center gap-2 ${
             isDarkMode ? 'bg-slate-800 border-slate-700 text-emerald-400' : 'bg-slate-100 border-slate-200 text-emerald-800'
           }`}>
             <Terminal className="w-3.5 h-3.5 text-slate-400" />
-            <span>flutter run</span>
+            <span>flutter build apk</span>
           </div>
 
           <button
             onClick={handleCopy}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#006B45] text-white text-xs font-bold hover:bg-[#005234] transition shadow-xs cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition shadow-xs cursor-pointer"
           >
-            {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+            {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
             <span>{copied ? 'Copied!' : `Copy ${selectedFile.name}`}</span>
           </button>
         </div>

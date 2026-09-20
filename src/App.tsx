@@ -5,6 +5,7 @@ import { MobileAppContainer } from './components/mobile/MobileAppContainer';
 import { AdminWebDashboard } from './components/admin/AdminWebDashboard';
 import { FlutterCodeViewer } from './components/FlutterCodeViewer';
 import { EduAttendLogo } from './components/common/EduAttendLogo';
+import { OpenOnPhoneModal } from './components/common/OpenOnPhoneModal';
 import { 
   LayoutGrid, 
   Smartphone, 
@@ -47,6 +48,8 @@ const MainShell: React.FC = () => {
     t,
     showToast 
   } = useApp();
+
+  const [showPhoneModal, setShowPhoneModal] = useState<boolean>(false);
 
   return (
     <div className={`min-h-screen flex flex-col font-sans transition-colors duration-200 ${
@@ -200,6 +203,17 @@ const MainShell: React.FC = () => {
               ខ្មែរ
             </button>
           </div>
+
+          {/* Use on Phone Action */}
+          <button
+            onClick={() => setShowPhoneModal(true)}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-[#006B45] text-white shadow-xs hover:bg-[#004D35] transition cursor-pointer"
+            title="Open on phone or scan QR code"
+          >
+            <Smartphone className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Use on Phone</span>
+            <span className="sm:hidden">Phone</span>
+          </button>
         </div>
       </header>
 
@@ -208,11 +222,11 @@ const MainShell: React.FC = () => {
         {viewMode === 'presentation' && <PresentationBoard />}
 
         {viewMode === 'mobile_app' && (
-          <div className={`flex-1 py-8 px-4 flex flex-col items-center justify-center transition-colors ${
+          <div className={`flex-1 py-0 md:py-8 px-0 md:px-4 flex flex-col items-center justify-center transition-colors ${
             isDarkMode ? 'bg-slate-950' : 'bg-[#E5E9E5]'
           }`}>
-            {/* Quick Navigation Toolbar above phone */}
-            <div className={`mb-4 flex items-center justify-between gap-2 max-w-md w-full px-4 py-2 rounded-2xl shadow-xs border text-xs flex-wrap transition-colors ${
+            {/* Quick Navigation Toolbar above phone - hidden on real phone */}
+            <div className={`hidden md:flex mb-4 items-center justify-between gap-2 max-w-md w-full px-4 py-2 rounded-2xl shadow-xs border text-xs flex-wrap transition-colors ${
               isDarkMode ? 'bg-slate-900 border-slate-800 text-slate-200' : 'bg-white border-slate-200 text-slate-700'
             }`}>
               <div className="flex items-center gap-1.5 font-bold">
@@ -329,6 +343,12 @@ const MainShell: React.FC = () => {
           <span className="text-slate-400">Anjali House • Siem Reap</span>
         </div>
       </footer>
+      {/* Use on Phone Modal */}
+      <OpenOnPhoneModal 
+        isOpen={showPhoneModal} 
+        onClose={() => setShowPhoneModal(false)} 
+        isDarkMode={isDarkMode} 
+      />
     </div>
   );
 };
