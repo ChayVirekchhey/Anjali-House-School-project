@@ -43,6 +43,11 @@ class Student {
   AttendanceStatus status;
   String? note;
   DateTime? markedAt;
+  bool hadBreakfast;
+  bool hadLunch;
+  final String allergies;
+  final String guardianPhone;
+  final String qrCode;
 
   Student({
     required this.id,
@@ -54,12 +59,19 @@ class Student {
     this.status = AttendanceStatus.present,
     this.note,
     this.markedAt,
-  });
+    this.hadBreakfast = true,
+    this.hadLunch = true,
+    this.allergies = 'None reported',
+    this.guardianPhone = '+855 12 345 678',
+    String? qrCode,
+  }) : qrCode = qrCode ?? 'ANJALI-ID-$rollNumber';
 
   Student copyWith({
     AttendanceStatus? status,
     String? note,
     DateTime? markedAt,
+    bool? hadBreakfast,
+    bool? hadLunch,
   }) {
     return Student(
       id: id,
@@ -71,6 +83,11 @@ class Student {
       status: status ?? this.status,
       note: note ?? this.note,
       markedAt: markedAt ?? this.markedAt,
+      hadBreakfast: hadBreakfast ?? this.hadBreakfast,
+      hadLunch: hadLunch ?? this.hadLunch,
+      allergies: allergies,
+      guardianPhone: guardianPhone,
+      qrCode: qrCode,
     );
   }
 }

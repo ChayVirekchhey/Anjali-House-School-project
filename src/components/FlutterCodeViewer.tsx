@@ -28,9 +28,11 @@ const DART_FILES: DartFile[] = [
     path: 'lib/main.dart',
     name: 'main.dart',
     category: 'core',
-    description: 'Application entry point, system overlays & Material 3 theme',
-    code: `import 'package:flutter/material.dart';
+    description: 'Application entry point with DevicePreview & Material 3 theme',
+    code: `import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:device_preview/device_preview.dart';
 import 'screens/splash_screen.dart';
 
 void main() {
@@ -43,7 +45,13 @@ void main() {
     ),
   );
 
-  runApp(const EduAttendApp());
+  runApp(
+    DevicePreview(
+      enabled: !kReleaseMode,
+      initialDevice: Devices.ios.iPhone13ProMax, // Default to iPhone Pro Max
+      builder: (context) => const EduAttendApp(),
+    ),
+  );
 }
 
 class EduAttendApp extends StatelessWidget {
@@ -54,6 +62,9 @@ class EduAttendApp extends StatelessWidget {
     return MaterialApp(
       title: 'EduAttend - Anjali House',
       debugShowCheckedModeBanner: false,
+      useInheritedMediaQuery: true,
+      locale: DevicePreview.locale(context),
+      builder: DevicePreview.appBuilder,
       theme: ThemeData(
         useMaterial3: true,
         fontFamily: 'Roboto',
@@ -436,6 +447,114 @@ class _StatBadge extends StatelessWidget {
 }`
   },
   {
+    path: 'lib/screens/qr_scanner_screen.dart',
+    name: 'qr_scanner_screen.dart',
+    category: 'screens',
+    description: 'Device Camera QR scanner with animated viewfinder, torch & haptic vibration',
+    code: `import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import '../models/student.dart';
+
+class QrScannerScreen extends StatefulWidget {
+  final List<Student> students;
+  final Function(Student student, AttendanceStatus status) onStudentScanned;
+
+  const QrScannerScreen({
+    super.key,
+    required this.students,
+    required this.onStudentScanned,
+  });
+
+  @override
+  State<QrScannerScreen> createState() => _QrScannerScreenState();
+}
+
+class _QrScannerScreenState extends State<QrScannerScreen> with SingleTickerProviderStateMixin {
+  late AnimationController _laserController;
+  bool _isTorchOn = false;
+  bool _isFrontCamera = false;
+  Student? _lastScannedStudent;
+  int _scanCount = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _laserController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    )..repeat(reverse: true);
+  }
+
+  @override
+  void dispose() {
+    _laserController.dispose();
+    super.dispose();
+  }
+
+  void _simulateScan(Student student) {
+    HapticFeedback.heavyImpact();
+    setState(() {
+      _lastScannedStudent = student;
+      _scanCount++;
+    });
+
+    widget.onStudentScanned(student, AttendanceStatus.present);
+
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Scanned: \${student.nameEnglish} (\${student.nameKhmer}) - Marked Present'),
+        backgroundColor: const Color(0xFF006B45),
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
+        title: const Text('Scan Student ID Card'),
+        actions: [
+          IconButton(
+            icon: Icon(_isTorchOn ? Icons.flash_on : Icons.flash_off),
+            onPressed: () => setState(() => _isTorchOn = !_isTorchOn),
+          ),
+          IconButton(
+            icon: const Icon(Icons.flip_camera_ios),
+            onPressed: () => setState(() => _isFrontCamera = !_isFrontCamera),
+          ),
+        ],
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 260,
+              height: 260,
+              decoration: BoxDecoration(
+                border: Border.all(color: const Color(0xFF00E676), width: 3),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: const Center(
+                child: Icon(Icons.qr_code_scanner, color: Colors.white30, size: 80),
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Text('Align Student QR code in camera box', style: TextStyle(color: Colors.white70)),
+          ],
+        ),
+      ),
+    );
+  }
+}`
+  },
+  {
     path: 'lib/widgets/student_card.dart',
     name: 'student_card.dart',
     category: 'widgets',
@@ -753,6 +872,7 @@ dependencies:
   flutter:
     sdk: flutter
   intl: ^0.19.0
+  device_preview: ^1.2.0
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:device_preview/device_preview.dart';
 import 'screens/splash_screen.dart';
 
 void main() {
@@ -13,7 +15,13 @@ void main() {
     ),
   );
 
-  runApp(const EduAttendApp());
+  runApp(
+    DevicePreview(
+      enabled: !kReleaseMode,
+      initialDevice: Devices.ios.iPhone13ProMax, // Default to iPhone Pro Max
+      builder: (context) => const EduAttendApp(),
+    ),
+  );
 }
 
 class EduAttendApp extends StatelessWidget {
@@ -24,6 +32,9 @@ class EduAttendApp extends StatelessWidget {
     return MaterialApp(
       title: 'EduAttend - Anjali House',
       debugShowCheckedModeBanner: false,
+      useInheritedMediaQuery: true,
+      locale: DevicePreview.locale(context),
+      builder: DevicePreview.appBuilder,
       theme: ThemeData(
         useMaterial3: true,
         fontFamily: 'Roboto',
@@ -39,38 +50,6 @@ class EduAttendApp extends StatelessWidget {
           centerTitle: false,
         ),
       ),
-      builder: (context, child) {
-        // When running on a PC / Web browser, frame inside a mobile phone wrapper
-        return LayoutBuilder(
-          builder: (context, constraints) {
-            if (constraints.maxWidth > 520) {
-              return Container(
-                color: const Color(0xFF0F172A),
-                alignment: Alignment.center,
-                child: Container(
-                  width: 420,
-                  height: constraints.maxHeight > 920 ? 860 : constraints.maxHeight * 0.96,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(32),
-                    border: Border.all(color: const Color(0xFF334155), width: 8),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.black54,
-                        blurRadius: 30,
-                        offset: Offset(0, 15),
-                      ),
-                    ],
-                  ),
-                  clipBehavior: Clip.antiAlias,
-                  child: child ?? const SizedBox(),
-                ),
-              );
-            }
-            return child ?? const SizedBox();
-          },
-        );
-      },
       home: const SplashScreen(),
     );
   }

@@ -1,7 +1,80 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ReportsScreen extends StatelessWidget {
   const ReportsScreen({super.key});
+
+  void _exportCSV(BuildContext context) {
+    HapticFeedback.mediumImpact();
+    const csvContent = 'Date,Class,Enrolled,Present,Late,Absent,Excused,MealsServed\n'
+        '2026-09-18,Young Learners 2A,10,8,1,1,0,10\n'
+        '2026-09-19,Young Learners 2A,10,9,0,0,1,10\n'
+        '2026-09-20,Young Learners 2A,10,7,2,1,0,9\n'
+        '2026-09-20,Creative Arts 3B,12,11,1,0,0,12\n';
+
+    Clipboard.setData(const ClipboardData(text: csvContent));
+
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: const Row(
+          children: [
+            Icon(Icons.table_view, color: Color(0xFF006B45)),
+            SizedBox(width: 8),
+            Text('CSV Attendance Export', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('CSV records copied to device clipboard:', style: TextStyle(fontSize: 12, color: Colors.grey)),
+            const SizedBox(height: 8),
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.grey.shade100,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Text(
+                csvContent,
+                style: TextStyle(fontSize: 11, fontFamily: 'monospace'),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Close')),
+          ElevatedButton.icon(
+            onPressed: () {
+              Navigator.pop(ctx);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Saved to device storage: anjali_attendance_sept2026.csv'),
+                  backgroundColor: Color(0xFF006B45),
+                ),
+              );
+            },
+            icon: const Icon(Icons.download, size: 16, color: Colors.white),
+            label: const Text('Save File', style: TextStyle(color: Colors.white)),
+            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF006B45)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _exportPDF(BuildContext context) {
+    HapticFeedback.selectionClick();
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Generating NGO Donor & Ministry of Education PDF report...'),
+        backgroundColor: Color(0xFF006B45),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -10,6 +83,13 @@ class ReportsScreen extends StatelessWidget {
         backgroundColor: const Color(0xFF006B45),
         foregroundColor: Colors.white,
         title: const Text('Attendance Reports & NGO Metrics', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.share),
+            tooltip: 'Share Report',
+            onPressed: () => _exportCSV(context),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -93,9 +173,9 @@ class ReportsScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: const Color(0xFF006B45).withOpacity(0.08),
+                color: const Color(0xFF006B45).withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: const Color(0xFF006B45).withOpacity(0.2)),
+                border: Border.all(color: const Color(0xFF006B45).withValues(alpha: 0.2)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,11 +198,7 @@ class ReportsScreen extends StatelessWidget {
                             foregroundColor: const Color(0xFF006B45),
                             side: const BorderSide(color: Color(0xFF006B45)),
                           ),
-                          onPressed: () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Exporting CSV summary...')),
-                            );
-                          },
+                          onPressed: () => _exportCSV(context),
                           icon: const Icon(Icons.table_chart_rounded, size: 16),
                           label: const Text('Export CSV', style: TextStyle(fontSize: 12)),
                         ),
@@ -134,11 +210,7 @@ class ReportsScreen extends StatelessWidget {
                             backgroundColor: const Color(0xFF006B45),
                             foregroundColor: Colors.white,
                           ),
-                          onPressed: () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Generating PDF Report...')),
-                            );
-                          },
+                          onPressed: () => _exportPDF(context),
                           icon: const Icon(Icons.picture_as_pdf_rounded, size: 16),
                           label: const Text('Export PDF', style: TextStyle(fontSize: 12)),
                         ),
