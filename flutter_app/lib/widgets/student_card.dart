@@ -83,7 +83,7 @@ class StudentCard extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                         decoration: BoxDecoration(
-                          color: const Color(0xFF006B45).withValues(alpha: 0.1),
+                          color: const Color(0xFF006B45).withOpacity(0.1),
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: Text(
@@ -216,7 +216,7 @@ class StudentCard extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.03),
+            color: Colors.black.withOpacity(0.03),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -236,7 +236,7 @@ class StudentCard extends StatelessWidget {
                     width: 44,
                     height: 44,
                     decoration: BoxDecoration(
-                      color: const Color(0xFF006B45).withValues(alpha: 0.1),
+                      color: const Color(0xFF006B45).withOpacity(0.1),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     alignment: Alignment.center,
@@ -427,7 +427,7 @@ class StudentCard extends StatelessWidget {
                           boxShadow: isSelected
                               ? [
                                   BoxShadow(
-                                    color: buttonColor.withValues(alpha: 0.3),
+                                    color: buttonColor.withOpacity(0.3),
                                     blurRadius: 4,
                                     offset: const Offset(0, 2),
                                   ),

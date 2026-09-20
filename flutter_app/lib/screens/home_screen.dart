@@ -155,6 +155,29 @@ class _TeacherDashboardView extends StatelessWidget {
                     'You have 2 classes scheduled for attendance marking today.',
                     style: TextStyle(color: Colors.green.shade100, fontSize: 12),
                   ),
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const AttendanceScreen(className: 'Young Learners 2A', subject: 'English & Phonics'),
+                            ),
+                          );
+                        },
+                        icon: const Icon(Icons.qr_code_scanner, size: 16, color: Color(0xFF004D35)),
+                        label: const Text('Scan QR Attendance', style: TextStyle(color: Color(0xFF004D35), fontWeight: FontWeight.bold, fontSize: 12)),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          elevation: 0,
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),

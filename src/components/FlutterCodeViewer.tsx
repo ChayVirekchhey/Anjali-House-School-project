@@ -62,7 +62,6 @@ class EduAttendApp extends StatelessWidget {
     return MaterialApp(
       title: 'EduAttend - Anjali House',
       debugShowCheckedModeBanner: false,
-      useInheritedMediaQuery: true,
       locale: DevicePreview.locale(context),
       builder: DevicePreview.appBuilder,
       theme: ThemeData(

@@ -126,7 +126,7 @@ class _QrScannerScreenState extends State<QrScannerScreen> with SingleTickerProv
           if (_isTorchOn)
             Positioned.fill(
               child: Container(
-                color: Colors.white.withValues(alpha: 0.12),
+                color: Colors.white.withOpacity(0.12),
               ),
             ),
 
@@ -171,7 +171,7 @@ class _QrScannerScreenState extends State<QrScannerScreen> with SingleTickerProv
                             ),
                             boxShadow: [
                               BoxShadow(
-                                color: const Color(0xFF00E676).withValues(alpha: 0.8),
+                                color: const Color(0xFF00E676).withOpacity(0.8),
                                 blurRadius: 10,
                                 spreadRadius: 2,
                               ),
